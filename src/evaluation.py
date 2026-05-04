@@ -259,6 +259,120 @@ class ModelEvaluator:
         return "\n".join(report)
 
 
+class RegressionEvaluator:
+    """Класс для комплексной оценки регрессионных моделей"""
+    
+    def __init__(self, model, X_train: np.ndarray, X_test: np.ndarray,
+                 y_train: np.ndarray, y_test: np.ndarray,
+                 feature_names: List[str] = None):
+        self.model = model
+        self.X_train = X_train
+        self.X_test = X_test
+        self.y_train = y_train
+        self.y_test = y_test
+        self.feature_names = feature_names or [f'feature_{i}' for i in range(X_train.shape[1])]
+        
+        self.y_pred_train = model.predict(X_train)
+        self.y_pred_test = model.predict(X_test)
+    
+    def get_metrics(self) -> Dict[str, float]:
+        from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+        metrics = {
+            'train_mae': mean_absolute_error(self.y_train, self.y_pred_train),
+            'test_mae': mean_absolute_error(self.y_test, self.y_pred_test),
+            'test_rmse': np.sqrt(mean_squared_error(self.y_test, self.y_pred_test)),
+            'train_r2': r2_score(self.y_train, self.y_pred_train),
+            'test_r2': r2_score(self.y_test, self.y_pred_test),
+        }
+        return metrics
+
+    def plot_actual_vs_predicted(self, save_path: str = None) -> None:
+        """График предсказанных значений против фактических"""
+        plt.figure(figsize=(10, 8))
+        plt.scatter(self.y_test, self.y_pred_test, alpha=0.6, color='steelblue')
+        
+        # Линия идеального предсказания
+        min_val = min(min(self.y_test), min(self.y_pred_test))
+        max_val = max(max(self.y_test), max(self.y_pred_test))
+        plt.plot([min_val, max_val], [min_val, max_val], 'r--', lw=2)
+        
+        plt.xlabel('Фактический Demand Index', fontsize=12)
+        plt.ylabel('Предсказанный Demand Index', fontsize=12)
+        plt.title('Actual vs Predicted Demand Index', fontsize=14)
+        plt.grid(True, alpha=0.3)
+        plt.tight_layout()
+        
+        if save_path:
+            plt.savefig(save_path, dpi=150, bbox_inches='tight')
+            print(f"✅ Сохранено: {save_path}")
+        plt.show()
+
+    def plot_residuals(self, save_path: str = None) -> None:
+        """График остатков (ошибок)"""
+        residuals = self.y_test - self.y_pred_test
+        
+        fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+        
+        # Scatter plot остатков
+        axes[0].scatter(self.y_pred_test, residuals, alpha=0.6, color='coral')
+        axes[0].axhline(y=0, color='r', linestyle='--', lw=2)
+        axes[0].set_xlabel('Предсказанные значения')
+        axes[0].set_ylabel('Остатки (Фактическое - Предсказанное)')
+        axes[0].set_title('График остатков (Residuals Plot)')
+        axes[0].grid(True, alpha=0.3)
+        
+        # Гистограмма остатков
+        sns.histplot(residuals, kde=True, ax=axes[1], color='coral')
+        axes[1].set_xlabel('Ошибка')
+        axes[1].set_ylabel('Частота')
+        axes[1].set_title('Распределение ошибок')
+        
+        plt.tight_layout()
+        
+        if save_path:
+            plt.savefig(save_path, dpi=150, bbox_inches='tight')
+            print(f"✅ Сохранено: {save_path}")
+        plt.show()
+        
+    def plot_feature_importance(self, top_n: int = 20, save_path: str = None) -> None:
+        """Визуализация важности признаков"""
+        if not hasattr(self.model, 'feature_importances_'):
+            print("⚠️ Feature importance недоступна для этой модели")
+            return
+        
+        importance = self.model.feature_importances_
+        
+        feat_imp = pd.DataFrame({
+            'Feature': self.feature_names,
+            'Importance': importance
+        }).sort_values('Importance', ascending=False).head(top_n)
+        
+        plt.figure(figsize=(12, 8))
+        sns.barplot(data=feat_imp, x='Importance', y='Feature', palette='viridis')
+        plt.title(f'Top-{top_n} Feature Importances', fontsize=14)
+        plt.xlabel('Importance')
+        plt.tight_layout()
+        
+        if save_path:
+            plt.savefig(save_path, dpi=150, bbox_inches='tight')
+            print(f"✅ Сохранено: {save_path}")
+        
+        plt.show()
+        
+        return feat_imp
+
+    def generate_report(self) -> str:
+        metrics = self.get_metrics()
+        report = []
+        report.append("=" * 60)
+        report.append("REGRESSION MODEL EVALUATION REPORT")
+        report.append("=" * 60)
+        report.append("\n📊 Metrics:")
+        for name, value in metrics.items():
+            report.append(f"   • {name}: {value:.4f}")
+        return "\n".join(report)
+
+
 class SHAPAnalyzer:
     """Класс для SHAP анализа моделей"""
     

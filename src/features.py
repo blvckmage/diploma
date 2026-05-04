@@ -77,10 +77,14 @@ class FeatureEngineer:
         text_lower = text.lower()
         found_skills = []
         
-        # Поиск по словарю
+        # Поиск по словарю с использованием регулярных выражений для точного совпадения
         all_skills = self.IT_SKILLS | self.IT_SKILLS_RU
         for skill in all_skills:
-            if skill in text_lower:
+            # Экранируем специальные символы в навыке (например, в c++)
+            escaped_skill = re.escape(skill)
+            # Ищем точное совпадение слова, не окруженное другими буквами или цифрами
+            pattern = rf'(?<![a-z0-9а-я]){escaped_skill}(?![a-z0-9а-я])'
+            if re.search(pattern, text_lower):
                 found_skills.append(skill)
         
         return list(set(found_skills))

@@ -24,7 +24,7 @@ from sklearn.preprocessing import label_binarize
 
 # Models
 from sklearn.linear_model import LogisticRegression, Ridge
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor, GradientBoostingClassifier
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor, GradientBoostingClassifier, GradientBoostingRegressor
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -407,6 +407,101 @@ class SalaryPredictor(BaseModel):
         }
         
         return metrics
+
+
+class DemandRegressor(BaseModel):
+    """Регрессор для предсказания спроса"""
+    MODELS = {
+        'ridge': Ridge,
+        'random_forest': RandomForestRegressor,
+        'gradient_boosting': GradientBoostingRegressor
+    }
+    
+    if XGBOOST_AVAILABLE:
+        MODELS['xgboost'] = XGBRegressor
+    if LIGHTGBM_AVAILABLE:
+        MODELS['lightgbm'] = LGBMRegressor
+    
+    def __init__(self, model_name: str = 'random_forest', params: Dict = None):
+        super().__init__(model_type='regression')
+        
+        if model_name not in self.MODELS:
+            raise ValueError(f"Неизвестная модель: {model_name}")
+        
+        self.model_name = model_name
+        self.params = params or {'random_state': 42}
+        self.model = self.MODELS[model_name](**self.params)
+    
+    def fit(self, X: np.ndarray, y: np.ndarray) -> 'DemandRegressor':
+        print(f"🔧 Обучение регрессора: {self.model_name}")
+        self.model.fit(X, y)
+        self.is_fitted = True
+        print(f"✅ Регрессор обучен")
+        return self
+    
+    def evaluate(self, X: np.ndarray, y: np.ndarray) -> Dict[str, float]:
+        y_pred = self.predict(X)
+        metrics = {
+            'mae': mean_absolute_error(y, y_pred),
+            'rmse': np.sqrt(mean_squared_error(y, y_pred)),
+            'r2': r2_score(y, y_pred)
+        }
+        return metrics
+
+    def cross_validate(self, X: np.ndarray, y: np.ndarray, cv: int = 5) -> Dict[str, float]:
+        from sklearn.model_selection import KFold
+        print(f"🔄 Кросс-валидация ({cv} фолдов)...")
+        kfold = KFold(n_splits=cv, shuffle=True, random_state=42)
+        scores = cross_val_score(self.model, X, y, cv=kfold, scoring='r2')
+        results = {
+            'mean_r2': scores.mean(),
+            'std_r2': scores.std(),
+            'all_scores': scores
+        }
+        print(f"   Mean R2: {scores.mean():.4f} (+/- {scores.std():.4f})")
+        return results
+
+class RegressorComparator:
+    """Класс для сравнения регрессоров"""
+    def __init__(self, models: Dict[str, BaseModel] = None):
+        self.models = models or {}
+        self.results = {}
+    
+    def add_model(self, name: str, model: BaseModel) -> None:
+        self.models[name] = model
+    
+    def compare(self, X_train: np.ndarray, y_train: np.ndarray, X_test: np.ndarray, y_test: np.ndarray, cv: int = 5) -> pd.DataFrame:
+        print("=" * 60)
+        print("📊 СРАВНЕНИЕ РЕГРЕССОРОВ")
+        print("=" * 60)
+        results = []
+        for name, model in self.models.items():
+            print(f"\n🔧 Обучение: {name}")
+            model.fit(X_train, y_train)
+            train_metrics = model.evaluate(X_train, y_train)
+            test_metrics = model.evaluate(X_test, y_test)
+            cv_results = model.cross_validate(X_train, y_train, cv=cv)
+            results.append({
+                'Model': name,
+                'Train_R2': train_metrics['r2'],
+                'Test_R2': test_metrics['r2'],
+                'Train_MAE': train_metrics['mae'],
+                'Test_MAE': test_metrics['mae'],
+                'Test_RMSE': test_metrics['rmse'],
+                'CV_Mean_R2': cv_results['mean_r2']
+            })
+        self.results = pd.DataFrame(results).sort_values('Test_R2', ascending=False)
+        print("\n" + "=" * 60)
+        print("📋 РЕЗУЛЬТАТЫ СРАВНЕНИЯ")
+        print("=" * 60)
+        print(self.results.to_string(index=False))
+        return self.results
+    
+    def get_best_model(self, metric: str = 'Test_R2') -> Tuple[str, BaseModel]:
+        if self.results.empty:
+            raise ValueError("Сначала выполните compare()")
+        best_name = self.results.sort_values(metric, ascending=False).iloc[0]['Model']
+        return best_name, self.models[best_name]
 
 
 def prepare_data_for_modeling(

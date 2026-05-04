@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 700px;
+                 background-color: #222222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"font": {"color": "white"}, "group": 1, "id": "sql", "label": "sql", "shape": "dot", "size": 104}, {"font": {"color": "white"}, "group": 3, "id": "python", "label": "python", "shape": "dot", "size": 66}, {"font": {"color": "white"}, "group": 2, "id": "docker", "label": "docker", "shape": "dot", "size": 48}, {"font": {"color": "white"}, "group": 1, "id": "oracle", "label": "oracle", "shape": "dot", "size": 33}, {"font": {"color": "white"}, "group": 0, "id": "mysql", "label": "mysql", "shape": "dot", "size": 60}, {"font": {"color": "white"}, "group": 1, "id": "c#", "label": "c#", "shape": "dot", "size": 44}, {"font": {"color": "white"}, "group": 2, "id": "jira", "label": "jira", "shape": "dot", "size": 14}, {"font": {"color": "white"}, "group": 1, "id": "postgresql", "label": "postgresql", "shape": "dot", "size": 44}, {"font": {"color": "white"}, "group": 0, "id": "javascript", "label": "javascript", "shape": "dot", "size": 135}, {"font": {"color": "white"}, "group": 1, "id": "java", "label": "java", "shape": "dot", "size": 82}, {"font": {"color": "white"}, "group": 1, "id": "spring", "label": "spring", "shape": "dot", "size": 43}, {"font": {"color": "white"}, "group": 0, "id": "php", "label": "php", "shape": "dot", "size": 100}, {"font": {"color": "white"}, "group": 0, "id": "react", "label": "react", "shape": "dot", "size": 81}, {"font": {"color": "white"}, "group": 3, "id": "django", "label": "django", "shape": "dot", "size": 24}, {"font": {"color": "white"}, "group": 3, "id": "flask", "label": "flask", "shape": "dot", "size": 6}, {"font": {"color": "white"}, "group": 3, "id": "fastapi", "label": "fastapi", "shape": "dot", "size": 6}, {"font": {"color": "white"}, "group": 0, "id": "js", "label": "js", "shape": "dot", "size": 89}, {"font": {"color": "white"}, "group": 2, "id": "git", "label": "git", "shape": "dot", "size": 46}, {"font": {"color": "white"}, "group": 2, "id": "kubernetes", "label": "kubernetes", "shape": "dot", "size": 20}, {"font": {"color": "white"}, "group": 2, "id": "postgres", "label": "postgres", "shape": "dot", "size": 6}, {"font": {"color": "white"}, "group": 2, "id": "redis", "label": "redis", "shape": "dot", "size": 16}, {"font": {"color": "white"}, "group": 2, "id": "linux", "label": "linux", "shape": "dot", "size": 44}, {"font": {"color": "white"}, "group": 0, "id": "vue", "label": "vue", "shape": "dot", "size": 42}, {"font": {"color": "white"}, "group": 0, "id": "figma", "label": "figma", "shape": "dot", "size": 33}, {"font": {"color": "white"}, "group": 1, "id": "kotlin", "label": "kotlin", "shape": "dot", "size": 27}, {"font": {"color": "white"}, "group": 0, "id": "typescript", "label": "typescript", "shape": "dot", "size": 39}, {"font": {"color": "white"}, "group": 0, "id": "angular", "label": "angular", "shape": "dot", "size": 20}, {"font": {"color": "white"}, "group": 0, "id": "node.js", "label": "node.js", "shape": "dot", "size": 16}, {"font": {"color": "white"}, "group": 4, "id": "ml", "label": "ml", "shape": "dot", "size": 8}, {"font": {"color": "white"}, "group": 4, "id": "excel", "label": "excel", "shape": "dot", "size": 31}, {"font": {"color": "white"}, "group": 6, "id": "swift", "label": "swift", "shape": "dot", "size": 17}, {"font": {"color": "white"}, "group": 10, "id": "golang", "label": "golang", "shape": "dot", "size": 18}, {"font": {"color": "white"}, "group": 8, "id": "express", "label": "express", "shape": "dot", "size": 6}, {"font": {"color": "white"}, "group": 9, "id": "aws", "label": "aws", "shape": "dot", "size": 8}, {"font": {"color": "white"}, "group": 10, "id": "go", "label": "go", "shape": "dot", "size": 12}, {"font": {"color": "white"}, "group": 11, "id": "mongodb", "label": "mongodb", "shape": "dot", "size": 7}, {"font": {"color": "white"}, "group": 12, "id": "kafka", "label": "kafka", "shape": "dot", "size": 7}, {"font": {"color": "white"}, "group": 13, "id": "c++", "label": "c++", "shape": "dot", "size": 12}, {"font": {"color": "white"}, "group": 9, "id": "jenkins", "label": "jenkins", "shape": "dot", "size": 5}]);
+                  edges = new vis.DataSet([{"from": "sql", "to": "python", "value": 10, "width": 10}, {"from": "sql", "to": "docker", "value": 5, "width": 5}, {"from": "sql", "to": "oracle", "value": 22, "width": 22}, {"from": "sql", "to": "mysql", "value": 10, "width": 10}, {"from": "sql", "to": "c#", "value": 19, "width": 19}, {"from": "sql", "to": "jira", "value": 5, "width": 5}, {"from": "sql", "to": "postgresql", "value": 15, "width": 15}, {"from": "sql", "to": "javascript", "value": 11, "width": 11}, {"from": "sql", "to": "java", "value": 9, "width": 9}, {"from": "sql", "to": "spring", "value": 5, "width": 5}, {"from": "sql", "to": "php", "value": 5, "width": 5}, {"from": "python", "to": "docker", "value": 8, "width": 8}, {"from": "python", "to": "javascript", "value": 6, "width": 6}, {"from": "python", "to": "php", "value": 7, "width": 7}, {"from": "python", "to": "react", "value": 7, "width": 7}, {"from": "python", "to": "django", "value": 24, "width": 24}, {"from": "python", "to": "flask", "value": 6, "width": 6}, {"from": "python", "to": "java", "value": 6, "width": 6}, {"from": "python", "to": "fastapi", "value": 6, "width": 6}, {"from": "python", "to": "js", "value": 5, "width": 5}, {"from": "docker", "to": "git", "value": 12, "width": 12}, {"from": "docker", "to": "react", "value": 5, "width": 5}, {"from": "docker", "to": "django", "value": 5, "width": 5}, {"from": "docker", "to": "mysql", "value": 8, "width": 8}, {"from": "docker", "to": "postgresql", "value": 7, "width": 7}, {"from": "docker", "to": "kubernetes", "value": 17, "width": 17}, {"from": "docker", "to": "php", "value": 7, "width": 7}, {"from": "docker", "to": "postgres", "value": 5, "width": 5}, {"from": "docker", "to": "redis", "value": 11, "width": 11}, {"from": "docker", "to": "linux", "value": 11, "width": 11}, {"from": "docker", "to": "java", "value": 6, "width": 6}, {"from": "git", "to": "javascript", "value": 11, "width": 11}, {"from": "git", "to": "kubernetes", "value": 5, "width": 5}, {"from": "git", "to": "php", "value": 11, "width": 11}, {"from": "git", "to": "redis", "value": 8, "width": 8}, {"from": "git", "to": "jira", "value": 6, "width": 6}, {"from": "git", "to": "linux", "value": 5, "width": 5}, {"from": "git", "to": "mysql", "value": 6, "width": 6}, {"from": "oracle", "to": "postgresql", "value": 10, "width": 10}, {"from": "oracle", "to": "javascript", "value": 5, "width": 5}, {"from": "oracle", "to": "java", "value": 10, "width": 10}, {"from": "oracle", "to": "spring", "value": 6, "width": 6}, {"from": "mysql", "to": "js", "value": 21, "width": 21}, {"from": "mysql", "to": "php", "value": 35, "width": 35}, {"from": "mysql", "to": "java", "value": 6, "width": 6}, {"from": "mysql", "to": "spring", "value": 6, "width": 6}, {"from": "mysql", "to": "linux", "value": 5, "width": 5}, {"from": "mysql", "to": "react", "value": 7, "width": 7}, {"from": "mysql", "to": "vue", "value": 9, "width": 9}, {"from": "mysql", "to": "javascript", "value": 19, "width": 19}, {"from": "mysql", "to": "postgresql", "value": 7, "width": 7}, {"from": "mysql", "to": "redis", "value": 6, "width": 6}, {"from": "figma", "to": "javascript", "value": 5, "width": 5}, {"from": "figma", "to": "php", "value": 5, "width": 5}, {"from": "java", "to": "spring", "value": 38, "width": 38}, {"from": "java", "to": "js", "value": 7, "width": 7}, {"from": "java", "to": "javascript", "value": 5, "width": 5}, {"from": "java", "to": "postgresql", "value": 9, "width": 9}, {"from": "java", "to": "kotlin", "value": 12, "width": 12}, {"from": "spring", "to": "postgresql", "value": 8, "width": 8}, {"from": "spring", "to": "kotlin", "value": 5, "width": 5}, {"from": "javascript", "to": "react", "value": 43, "width": 43}, {"from": "javascript", "to": "typescript", "value": 27, "width": 27}, {"from": "javascript", "to": "angular", "value": 16, "width": 16}, {"from": "javascript", "to": "js", "value": 28, "width": 28}, {"from": "javascript", "to": "vue", "value": 21, "width": 21}, {"from": "javascript", "to": "php", "value": 36, "width": 36}, {"from": "javascript", "to": "c#", "value": 14, "width": 14}, {"from": "javascript", "to": "postgresql", "value": 6, "width": 6}, {"from": "javascript", "to": "node.js", "value": 6, "width": 6}, {"from": "react", "to": "js", "value": 36, "width": 36}, {"from": "react", "to": "node.js", "value": 9, "width": 9}, {"from": "react", "to": "php", "value": 15, "width": 15}, {"from": "react", "to": "vue", "value": 17, "width": 17}, {"from": "react", "to": "angular", "value": 9, "width": 9}, {"from": "react", "to": "typescript", "value": 13, "width": 13}, {"from": "typescript", "to": "js", "value": 10, "width": 10}, {"from": "typescript", "to": "postgresql", "value": 5, "width": 5}, {"from": "typescript", "to": "angular", "value": 7, "width": 7}, {"from": "typescript", "to": "vue", "value": 6, "width": 6}, {"from": "js", "to": "php", "value": 22, "width": 22}, {"from": "js", "to": "vue", "value": 27, "width": 27}, {"from": "js", "to": "node.js", "value": 16, "width": 16}, {"from": "js", "to": "postgresql", "value": 5, "width": 5}, {"from": "php", "to": "vue", "value": 14, "width": 14}, {"from": "php", "to": "redis", "value": 5, "width": 5}, {"from": "angular", "to": "vue", "value": 5, "width": 5}, {"from": "linux", "to": "kubernetes", "value": 6, "width": 6}, {"from": "django", "to": "flask", "value": 6, "width": 6}, {"from": "postgresql", "to": "redis", "value": 5, "width": 5}, {"from": "kubernetes", "to": "postgres", "value": 5, "width": 5}, {"from": "postgres", "to": "redis", "value": 5, "width": 5}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.2,
+            "damping": 0.09,
+            "nodeDistance": 100,
+            "springConstant": 0.05,
+            "springLength": 200
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
