@@ -1,1 +1,1504 @@
-{"directed": false, "multigraph": false, "graph": {}, "nodes": [{"size": 104, "label": "sql", "group": 1, "id": "sql"}, {"size": 66, "label": "python", "group": 3, "id": "python"}, {"size": 48, "label": "docker", "group": 2, "id": "docker"}, {"size": 46, "label": "git", "group": 2, "id": "git"}, {"size": 33, "label": "oracle", "group": 1, "id": "oracle"}, {"size": 60, "label": "mysql", "group": 0, "id": "mysql"}, {"size": 8, "label": "ml", "group": 4, "id": "ml"}, {"size": 33, "label": "figma", "group": 0, "id": "figma"}, {"size": 82, "label": "java", "group": 1, "id": "java"}, {"size": 43, "label": "spring", "group": 1, "id": "spring"}, {"size": 135, "label": "javascript", "group": 0, "id": "javascript"}, {"size": 81, "label": "react", "group": 0, "id": "react"}, {"size": 39, "label": "typescript", "group": 0, "id": "typescript"}, {"size": 89, "label": "js", "group": 0, "id": "js"}, {"size": 100, "label": "php", "group": 0, "id": "php"}, {"size": 27, "label": "kotlin", "group": 1, "id": "kotlin"}, {"size": 20, "label": "angular", "group": 0, "id": "angular"}, {"size": 42, "label": "vue", "group": 0, "id": "vue"}, {"size": 16, "label": "node.js", "group": 0, "id": "node.js"}, {"size": 31, "label": "excel", "group": 4, "id": "excel"}, {"size": 44, "label": "c#", "group": 1, "id": "c#"}, {"size": 44, "label": "linux", "group": 2, "id": "linux"}, {"size": 24, "label": "django", "group": 3, "id": "django"}, {"size": 6, "label": "flask", "group": 3, "id": "flask"}, {"size": 17, "label": "swift", "group": 6, "id": "swift"}, {"size": 14, "label": "jira", "group": 2, "id": "jira"}, {"size": 44, "label": "postgresql", "group": 1, "id": "postgresql"}, {"size": 18, "label": "golang", "group": 10, "id": "golang"}, {"size": 6, "label": "express", "group": 8, "id": "express"}, {"size": 20, "label": "kubernetes", "group": 2, "id": "kubernetes"}, {"size": 6, "label": "postgres", "group": 2, "id": "postgres"}, {"size": 16, "label": "redis", "group": 2, "id": "redis"}, {"size": 8, "label": "aws", "group": 9, "id": "aws"}, {"size": 12, "label": "go", "group": 10, "id": "go"}, {"size": 7, "label": "mongodb", "group": 11, "id": "mongodb"}, {"size": 6, "label": "fastapi", "group": 3, "id": "fastapi"}, {"size": 7, "label": "kafka", "group": 12, "id": "kafka"}, {"size": 12, "label": "c++", "group": 13, "id": "c++"}, {"size": 5, "label": "jenkins", "group": 9, "id": "jenkins"}], "edges": [{"value": 10, "width": 10, "source": "sql", "target": "python"}, {"value": 5, "width": 5, "source": "sql", "target": "docker"}, {"value": 22, "width": 22, "source": "sql", "target": "oracle"}, {"value": 10, "width": 10, "source": "sql", "target": "mysql"}, {"value": 19, "width": 19, "source": "sql", "target": "c#"}, {"value": 5, "width": 5, "source": "sql", "target": "jira"}, {"value": 15, "width": 15, "source": "sql", "target": "postgresql"}, {"value": 11, "width": 11, "source": "sql", "target": "javascript"}, {"value": 9, "width": 9, "source": "sql", "target": "java"}, {"value": 5, "width": 5, "source": "sql", "target": "spring"}, {"value": 5, "width": 5, "source": "sql", "target": "php"}, {"value": 8, "width": 8, "source": "python", "target": "docker"}, {"value": 6, "width": 6, "source": "python", "target": "javascript"}, {"value": 7, "width": 7, "source": "python", "target": "php"}, {"value": 7, "width": 7, "source": "python", "target": "react"}, {"value": 24, "width": 24, "source": "python", "target": "django"}, {"value": 6, "width": 6, "source": "python", "target": "flask"}, {"value": 6, "width": 6, "source": "python", "target": "java"}, {"value": 6, "width": 6, "source": "python", "target": "fastapi"}, {"value": 5, "width": 5, "source": "python", "target": "js"}, {"value": 12, "width": 12, "source": "docker", "target": "git"}, {"value": 5, "width": 5, "source": "docker", "target": "react"}, {"value": 5, "width": 5, "source": "docker", "target": "django"}, {"value": 8, "width": 8, "source": "docker", "target": "mysql"}, {"value": 7, "width": 7, "source": "docker", "target": "postgresql"}, {"value": 17, "width": 17, "source": "docker", "target": "kubernetes"}, {"value": 7, "width": 7, "source": "docker", "target": "php"}, {"value": 5, "width": 5, "source": "docker", "target": "postgres"}, {"value": 11, "width": 11, "source": "docker", "target": "redis"}, {"value": 11, "width": 11, "source": "docker", "target": "linux"}, {"value": 6, "width": 6, "source": "docker", "target": "java"}, {"value": 11, "width": 11, "source": "git", "target": "javascript"}, {"value": 5, "width": 5, "source": "git", "target": "kubernetes"}, {"value": 11, "width": 11, "source": "git", "target": "php"}, {"value": 8, "width": 8, "source": "git", "target": "redis"}, {"value": 6, "width": 6, "source": "git", "target": "jira"}, {"value": 5, "width": 5, "source": "git", "target": "linux"}, {"value": 6, "width": 6, "source": "git", "target": "mysql"}, {"value": 10, "width": 10, "source": "oracle", "target": "postgresql"}, {"value": 5, "width": 5, "source": "oracle", "target": "javascript"}, {"value": 10, "width": 10, "source": "oracle", "target": "java"}, {"value": 6, "width": 6, "source": "oracle", "target": "spring"}, {"value": 21, "width": 21, "source": "mysql", "target": "js"}, {"value": 35, "width": 35, "source": "mysql", "target": "php"}, {"value": 6, "width": 6, "source": "mysql", "target": "java"}, {"value": 6, "width": 6, "source": "mysql", "target": "spring"}, {"value": 5, "width": 5, "source": "mysql", "target": "linux"}, {"value": 7, "width": 7, "source": "mysql", "target": "react"}, {"value": 9, "width": 9, "source": "mysql", "target": "vue"}, {"value": 19, "width": 19, "source": "mysql", "target": "javascript"}, {"value": 7, "width": 7, "source": "mysql", "target": "postgresql"}, {"value": 6, "width": 6, "source": "mysql", "target": "redis"}, {"value": 5, "width": 5, "source": "figma", "target": "javascript"}, {"value": 5, "width": 5, "source": "figma", "target": "php"}, {"value": 38, "width": 38, "source": "java", "target": "spring"}, {"value": 7, "width": 7, "source": "java", "target": "js"}, {"value": 5, "width": 5, "source": "java", "target": "javascript"}, {"value": 9, "width": 9, "source": "java", "target": "postgresql"}, {"value": 12, "width": 12, "source": "java", "target": "kotlin"}, {"value": 8, "width": 8, "source": "spring", "target": "postgresql"}, {"value": 5, "width": 5, "source": "spring", "target": "kotlin"}, {"value": 43, "width": 43, "source": "javascript", "target": "react"}, {"value": 27, "width": 27, "source": "javascript", "target": "typescript"}, {"value": 16, "width": 16, "source": "javascript", "target": "angular"}, {"value": 28, "width": 28, "source": "javascript", "target": "js"}, {"value": 21, "width": 21, "source": "javascript", "target": "vue"}, {"value": 36, "width": 36, "source": "javascript", "target": "php"}, {"value": 14, "width": 14, "source": "javascript", "target": "c#"}, {"value": 6, "width": 6, "source": "javascript", "target": "postgresql"}, {"value": 6, "width": 6, "source": "javascript", "target": "node.js"}, {"value": 36, "width": 36, "source": "react", "target": "js"}, {"value": 9, "width": 9, "source": "react", "target": "node.js"}, {"value": 15, "width": 15, "source": "react", "target": "php"}, {"value": 17, "width": 17, "source": "react", "target": "vue"}, {"value": 9, "width": 9, "source": "react", "target": "angular"}, {"value": 13, "width": 13, "source": "react", "target": "typescript"}, {"value": 10, "width": 10, "source": "typescript", "target": "js"}, {"value": 5, "width": 5, "source": "typescript", "target": "postgresql"}, {"value": 7, "width": 7, "source": "typescript", "target": "angular"}, {"value": 6, "width": 6, "source": "typescript", "target": "vue"}, {"value": 22, "width": 22, "source": "js", "target": "php"}, {"value": 27, "width": 27, "source": "js", "target": "vue"}, {"value": 16, "width": 16, "source": "js", "target": "node.js"}, {"value": 5, "width": 5, "source": "js", "target": "postgresql"}, {"value": 14, "width": 14, "source": "php", "target": "vue"}, {"value": 5, "width": 5, "source": "php", "target": "redis"}, {"value": 5, "width": 5, "source": "angular", "target": "vue"}, {"value": 6, "width": 6, "source": "linux", "target": "kubernetes"}, {"value": 6, "width": 6, "source": "django", "target": "flask"}, {"value": 5, "width": 5, "source": "postgresql", "target": "redis"}, {"value": 5, "width": 5, "source": "kubernetes", "target": "postgres"}, {"value": 5, "width": 5, "source": "postgres", "target": "redis"}]}
+{
+  "nodes": [
+    {
+      "id": "docker",
+      "label": "docker",
+      "size": 151,
+      "group": 4
+    },
+    {
+      "id": "java",
+      "label": "java",
+      "size": 268,
+      "group": 0
+    },
+    {
+      "id": "kubernetes",
+      "label": "kubernetes",
+      "size": 64,
+      "group": 4
+    },
+    {
+      "id": "spring",
+      "label": "spring",
+      "size": 146,
+      "group": 0
+    },
+    {
+      "id": "kotlin",
+      "label": "kotlin",
+      "size": 83,
+      "group": 0
+    },
+    {
+      "id": "javascript",
+      "label": "javascript",
+      "size": 606,
+      "group": 1
+    },
+    {
+      "id": "react",
+      "label": "react",
+      "size": 272,
+      "group": 1
+    },
+    {
+      "id": "linux",
+      "label": "linux",
+      "size": 144,
+      "group": 4
+    },
+    {
+      "id": "excel",
+      "label": "excel",
+      "size": 86,
+      "group": 0
+    },
+    {
+      "id": "sql",
+      "label": "sql",
+      "size": 332,
+      "group": 0
+    },
+    {
+      "id": "c#",
+      "label": "c#",
+      "size": 140,
+      "group": 0
+    },
+    {
+      "id": "golang",
+      "label": "golang",
+      "size": 85,
+      "group": 4
+    },
+    {
+      "id": "kafka",
+      "label": "kafka",
+      "size": 20,
+      "group": 4
+    },
+    {
+      "id": "php",
+      "label": "php",
+      "size": 322,
+      "group": 1
+    },
+    {
+      "id": "angular",
+      "label": "angular",
+      "size": 72,
+      "group": 1
+    },
+    {
+      "id": "git",
+      "label": "git",
+      "size": 130,
+      "group": 4
+    },
+    {
+      "id": "typescript",
+      "label": "typescript",
+      "size": 133,
+      "group": 1
+    },
+    {
+      "id": "figma",
+      "label": "figma",
+      "size": 100,
+      "group": 1
+    },
+    {
+      "id": "vue",
+      "label": "vue",
+      "size": 156,
+      "group": 1
+    },
+    {
+      "id": "django",
+      "label": "django",
+      "size": 87,
+      "group": 3
+    },
+    {
+      "id": "oracle",
+      "label": "oracle",
+      "size": 99,
+      "group": 0
+    },
+    {
+      "id": "python",
+      "label": "python",
+      "size": 217,
+      "group": 3
+    },
+    {
+      "id": "fastapi",
+      "label": "fastapi",
+      "size": 22,
+      "group": 3
+    },
+    {
+      "id": "flask",
+      "label": "flask",
+      "size": 18,
+      "group": 3
+    },
+    {
+      "id": "mysql",
+      "label": "mysql",
+      "size": 212,
+      "group": 1
+    },
+    {
+      "id": "jenkins",
+      "label": "jenkins",
+      "size": 17,
+      "group": 4
+    },
+    {
+      "id": "machine learning",
+      "label": "machine learning",
+      "size": 33,
+      "group": 3
+    },
+    {
+      "id": "postgresql",
+      "label": "postgresql",
+      "size": 152,
+      "group": 0
+    },
+    {
+      "id": "jira",
+      "label": "jira",
+      "size": 38,
+      "group": 0
+    },
+    {
+      "id": "swift",
+      "label": "swift",
+      "size": 50,
+      "group": 5
+    },
+    {
+      "id": "c++",
+      "label": "c++",
+      "size": 40,
+      "group": 3
+    },
+    {
+      "id": "powerpoint",
+      "label": "powerpoint",
+      "size": 13,
+      "group": 0
+    },
+    {
+      "id": "express",
+      "label": "express",
+      "size": 20,
+      "group": 1
+    },
+    {
+      "id": "nodejs",
+      "label": "nodejs",
+      "size": 85,
+      "group": 1
+    },
+    {
+      "id": "sqlite",
+      "label": "sqlite",
+      "size": 10,
+      "group": 1
+    },
+    {
+      "id": "scala",
+      "label": "scala",
+      "size": 11,
+      "group": 0
+    },
+    {
+      "id": "aws",
+      "label": "aws",
+      "size": 26,
+      "group": 4
+    },
+    {
+      "id": "azure",
+      "label": "azure",
+      "size": 11,
+      "group": 4
+    },
+    {
+      "id": "gcp",
+      "label": "gcp",
+      "size": 9,
+      "group": 4
+    },
+    {
+      "id": "mongodb",
+      "label": "mongodb",
+      "size": 29,
+      "group": 4
+    },
+    {
+      "id": "redis",
+      "label": "redis",
+      "size": 46,
+      "group": 4
+    },
+    {
+      "id": "ruby",
+      "label": "ruby",
+      "size": 25,
+      "group": 4
+    },
+    {
+      "id": "postman",
+      "label": "postman",
+      "size": 10,
+      "group": 6
+    },
+    {
+      "id": "power bi",
+      "label": "power bi",
+      "size": 13,
+      "group": 0
+    },
+    {
+      "id": "bash",
+      "label": "bash",
+      "size": 9,
+      "group": 3
+    },
+    {
+      "id": "confluence",
+      "label": "confluence",
+      "size": 5,
+      "group": 0
+    },
+    {
+      "id": "big data",
+      "label": "big data",
+      "size": 11,
+      "group": 0
+    },
+    {
+      "id": "dbt",
+      "label": "dbt",
+      "size": 5,
+      "group": 0
+    },
+    {
+      "id": "pytorch",
+      "label": "pytorch",
+      "size": 5,
+      "group": 3
+    },
+    {
+      "id": "tensorflow",
+      "label": "tensorflow",
+      "size": 5,
+      "group": 3
+    },
+    {
+      "id": "spark",
+      "label": "spark",
+      "size": 7,
+      "group": 0
+    },
+    {
+      "id": "elasticsearch",
+      "label": "elasticsearch",
+      "size": 5,
+      "group": 4
+    },
+    {
+      "id": "анализ данных",
+      "label": "анализ данных",
+      "size": 5,
+      "group": 7
+    }
+  ],
+  "links": [
+    {
+      "source": "docker",
+      "target": "java",
+      "weight": 17
+    },
+    {
+      "source": "docker",
+      "target": "kubernetes",
+      "weight": 46
+    },
+    {
+      "source": "docker",
+      "target": "spring",
+      "weight": 14
+    },
+    {
+      "source": "docker",
+      "target": "jenkins",
+      "weight": 8
+    },
+    {
+      "source": "docker",
+      "target": "kotlin",
+      "weight": 6
+    },
+    {
+      "source": "docker",
+      "target": "django",
+      "weight": 22
+    },
+    {
+      "source": "docker",
+      "target": "python",
+      "weight": 25
+    },
+    {
+      "source": "docker",
+      "target": "react",
+      "weight": 11
+    },
+    {
+      "source": "docker",
+      "target": "linux",
+      "weight": 37
+    },
+    {
+      "source": "docker",
+      "target": "git",
+      "weight": 36
+    },
+    {
+      "source": "docker",
+      "target": "sql",
+      "weight": 17
+    },
+    {
+      "source": "docker",
+      "target": "javascript",
+      "weight": 23
+    },
+    {
+      "source": "docker",
+      "target": "mongodb",
+      "weight": 15
+    },
+    {
+      "source": "docker",
+      "target": "mysql",
+      "weight": 30
+    },
+    {
+      "source": "docker",
+      "target": "php",
+      "weight": 16
+    },
+    {
+      "source": "docker",
+      "target": "postgresql",
+      "weight": 39
+    },
+    {
+      "source": "docker",
+      "target": "redis",
+      "weight": 30
+    },
+    {
+      "source": "docker",
+      "target": "ruby",
+      "weight": 6
+    },
+    {
+      "source": "docker",
+      "target": "golang",
+      "weight": 7
+    },
+    {
+      "source": "docker",
+      "target": "nodejs",
+      "weight": 7
+    },
+    {
+      "source": "docker",
+      "target": "oracle",
+      "weight": 6
+    },
+    {
+      "source": "docker",
+      "target": "flask",
+      "weight": 6
+    },
+    {
+      "source": "docker",
+      "target": "kafka",
+      "weight": 6
+    },
+    {
+      "source": "java",
+      "target": "kubernetes",
+      "weight": 9
+    },
+    {
+      "source": "java",
+      "target": "spring",
+      "weight": 131
+    },
+    {
+      "source": "java",
+      "target": "kotlin",
+      "weight": 36
+    },
+    {
+      "source": "java",
+      "target": "c#",
+      "weight": 18
+    },
+    {
+      "source": "java",
+      "target": "sql",
+      "weight": 30
+    },
+    {
+      "source": "java",
+      "target": "javascript",
+      "weight": 40
+    },
+    {
+      "source": "java",
+      "target": "linux",
+      "weight": 12
+    },
+    {
+      "source": "java",
+      "target": "postgresql",
+      "weight": 20
+    },
+    {
+      "source": "java",
+      "target": "scala",
+      "weight": 7
+    },
+    {
+      "source": "java",
+      "target": "php",
+      "weight": 11
+    },
+    {
+      "source": "java",
+      "target": "vue",
+      "weight": 9
+    },
+    {
+      "source": "java",
+      "target": "mysql",
+      "weight": 21
+    },
+    {
+      "source": "java",
+      "target": "nodejs",
+      "weight": 14
+    },
+    {
+      "source": "java",
+      "target": "react",
+      "weight": 8
+    },
+    {
+      "source": "java",
+      "target": "oracle",
+      "weight": 29
+    },
+    {
+      "source": "java",
+      "target": "python",
+      "weight": 21
+    },
+    {
+      "source": "java",
+      "target": "git",
+      "weight": 9
+    },
+    {
+      "source": "java",
+      "target": "big data",
+      "weight": 6
+    },
+    {
+      "source": "kubernetes",
+      "target": "spring",
+      "weight": 8
+    },
+    {
+      "source": "kubernetes",
+      "target": "python",
+      "weight": 8
+    },
+    {
+      "source": "kubernetes",
+      "target": "react",
+      "weight": 5
+    },
+    {
+      "source": "kubernetes",
+      "target": "git",
+      "weight": 9
+    },
+    {
+      "source": "kubernetes",
+      "target": "golang",
+      "weight": 7
+    },
+    {
+      "source": "kubernetes",
+      "target": "postgresql",
+      "weight": 14
+    },
+    {
+      "source": "kubernetes",
+      "target": "redis",
+      "weight": 7
+    },
+    {
+      "source": "kubernetes",
+      "target": "linux",
+      "weight": 17
+    },
+    {
+      "source": "kubernetes",
+      "target": "kotlin",
+      "weight": 5
+    },
+    {
+      "source": "spring",
+      "target": "kotlin",
+      "weight": 15
+    },
+    {
+      "source": "spring",
+      "target": "javascript",
+      "weight": 12
+    },
+    {
+      "source": "spring",
+      "target": "mysql",
+      "weight": 20
+    },
+    {
+      "source": "spring",
+      "target": "nodejs",
+      "weight": 9
+    },
+    {
+      "source": "spring",
+      "target": "postgresql",
+      "weight": 18
+    },
+    {
+      "source": "spring",
+      "target": "linux",
+      "weight": 8
+    },
+    {
+      "source": "spring",
+      "target": "oracle",
+      "weight": 18
+    },
+    {
+      "source": "spring",
+      "target": "git",
+      "weight": 9
+    },
+    {
+      "source": "spring",
+      "target": "sql",
+      "weight": 14
+    },
+    {
+      "source": "spring",
+      "target": "golang",
+      "weight": 5
+    },
+    {
+      "source": "kotlin",
+      "target": "python",
+      "weight": 5
+    },
+    {
+      "source": "javascript",
+      "target": "react",
+      "weight": 217
+    },
+    {
+      "source": "javascript",
+      "target": "c#",
+      "weight": 42
+    },
+    {
+      "source": "javascript",
+      "target": "sql",
+      "weight": 40
+    },
+    {
+      "source": "javascript",
+      "target": "php",
+      "weight": 160
+    },
+    {
+      "source": "javascript",
+      "target": "angular",
+      "weight": 57
+    },
+    {
+      "source": "javascript",
+      "target": "git",
+      "weight": 35
+    },
+    {
+      "source": "javascript",
+      "target": "typescript",
+      "weight": 111
+    },
+    {
+      "source": "javascript",
+      "target": "vue",
+      "weight": 133
+    },
+    {
+      "source": "javascript",
+      "target": "django",
+      "weight": 25
+    },
+    {
+      "source": "javascript",
+      "target": "oracle",
+      "weight": 14
+    },
+    {
+      "source": "javascript",
+      "target": "python",
+      "weight": 40
+    },
+    {
+      "source": "javascript",
+      "target": "golang",
+      "weight": 10
+    },
+    {
+      "source": "javascript",
+      "target": "mysql",
+      "weight": 124
+    },
+    {
+      "source": "javascript",
+      "target": "express",
+      "weight": 20
+    },
+    {
+      "source": "javascript",
+      "target": "nodejs",
+      "weight": 71
+    },
+    {
+      "source": "javascript",
+      "target": "figma",
+      "weight": 16
+    },
+    {
+      "source": "javascript",
+      "target": "sqlite",
+      "weight": 5
+    },
+    {
+      "source": "javascript",
+      "target": "postgresql",
+      "weight": 32
+    },
+    {
+      "source": "javascript",
+      "target": "mongodb",
+      "weight": 10
+    },
+    {
+      "source": "javascript",
+      "target": "redis",
+      "weight": 7
+    },
+    {
+      "source": "javascript",
+      "target": "ruby",
+      "weight": 7
+    },
+    {
+      "source": "react",
+      "target": "angular",
+      "weight": 32
+    },
+    {
+      "source": "react",
+      "target": "vue",
+      "weight": 65
+    },
+    {
+      "source": "react",
+      "target": "typescript",
+      "weight": 44
+    },
+    {
+      "source": "react",
+      "target": "php",
+      "weight": 59
+    },
+    {
+      "source": "react",
+      "target": "django",
+      "weight": 17
+    },
+    {
+      "source": "react",
+      "target": "python",
+      "weight": 31
+    },
+    {
+      "source": "react",
+      "target": "c#",
+      "weight": 7
+    },
+    {
+      "source": "react",
+      "target": "express",
+      "weight": 7
+    },
+    {
+      "source": "react",
+      "target": "mysql",
+      "weight": 31
+    },
+    {
+      "source": "react",
+      "target": "nodejs",
+      "weight": 39
+    },
+    {
+      "source": "react",
+      "target": "sqlite",
+      "weight": 5
+    },
+    {
+      "source": "react",
+      "target": "git",
+      "weight": 8
+    },
+    {
+      "source": "react",
+      "target": "figma",
+      "weight": 8
+    },
+    {
+      "source": "react",
+      "target": "postgresql",
+      "weight": 9
+    },
+    {
+      "source": "react",
+      "target": "mongodb",
+      "weight": 8
+    },
+    {
+      "source": "react",
+      "target": "sql",
+      "weight": 8
+    },
+    {
+      "source": "linux",
+      "target": "php",
+      "weight": 19
+    },
+    {
+      "source": "linux",
+      "target": "jenkins",
+      "weight": 11
+    },
+    {
+      "source": "linux",
+      "target": "git",
+      "weight": 18
+    },
+    {
+      "source": "linux",
+      "target": "mongodb",
+      "weight": 10
+    },
+    {
+      "source": "linux",
+      "target": "mysql",
+      "weight": 21
+    },
+    {
+      "source": "linux",
+      "target": "postgresql",
+      "weight": 9
+    },
+    {
+      "source": "linux",
+      "target": "redis",
+      "weight": 12
+    },
+    {
+      "source": "linux",
+      "target": "bash",
+      "weight": 7
+    },
+    {
+      "source": "linux",
+      "target": "sql",
+      "weight": 5
+    },
+    {
+      "source": "linux",
+      "target": "golang",
+      "weight": 6
+    },
+    {
+      "source": "linux",
+      "target": "python",
+      "weight": 9
+    },
+    {
+      "source": "linux",
+      "target": "kafka",
+      "weight": 5
+    },
+    {
+      "source": "excel",
+      "target": "sql",
+      "weight": 8
+    },
+    {
+      "source": "excel",
+      "target": "powerpoint",
+      "weight": 8
+    },
+    {
+      "source": "sql",
+      "target": "c#",
+      "weight": 53
+    },
+    {
+      "source": "sql",
+      "target": "golang",
+      "weight": 11
+    },
+    {
+      "source": "sql",
+      "target": "kafka",
+      "weight": 6
+    },
+    {
+      "source": "sql",
+      "target": "php",
+      "weight": 16
+    },
+    {
+      "source": "sql",
+      "target": "django",
+      "weight": 7
+    },
+    {
+      "source": "sql",
+      "target": "oracle",
+      "weight": 64
+    },
+    {
+      "source": "sql",
+      "target": "python",
+      "weight": 39
+    },
+    {
+      "source": "sql",
+      "target": "jira",
+      "weight": 16
+    },
+    {
+      "source": "sql",
+      "target": "postgresql",
+      "weight": 46
+    },
+    {
+      "source": "sql",
+      "target": "git",
+      "weight": 12
+    },
+    {
+      "source": "sql",
+      "target": "angular",
+      "weight": 6
+    },
+    {
+      "source": "sql",
+      "target": "power bi",
+      "weight": 6
+    },
+    {
+      "source": "sql",
+      "target": "typescript",
+      "weight": 12
+    },
+    {
+      "source": "sql",
+      "target": "mysql",
+      "weight": 24
+    },
+    {
+      "source": "sql",
+      "target": "big data",
+      "weight": 11
+    },
+    {
+      "source": "sql",
+      "target": "dbt",
+      "weight": 5
+    },
+    {
+      "source": "sql",
+      "target": "machine learning",
+      "weight": 5
+    },
+    {
+      "source": "sql",
+      "target": "sqlite",
+      "weight": 5
+    },
+    {
+      "source": "sql",
+      "target": "elasticsearch",
+      "weight": 5
+    },
+    {
+      "source": "sql",
+      "target": "redis",
+      "weight": 9
+    },
+    {
+      "source": "sql",
+      "target": "ruby",
+      "weight": 5
+    },
+    {
+      "source": "sql",
+      "target": "nodejs",
+      "weight": 6
+    },
+    {
+      "source": "sql",
+      "target": "scala",
+      "weight": 6
+    },
+    {
+      "source": "c#",
+      "target": "django",
+      "weight": 12
+    },
+    {
+      "source": "c#",
+      "target": "oracle",
+      "weight": 7
+    },
+    {
+      "source": "c#",
+      "target": "python",
+      "weight": 12
+    },
+    {
+      "source": "c#",
+      "target": "git",
+      "weight": 9
+    },
+    {
+      "source": "c#",
+      "target": "jira",
+      "weight": 11
+    },
+    {
+      "source": "golang",
+      "target": "kafka",
+      "weight": 6
+    },
+    {
+      "source": "golang",
+      "target": "php",
+      "weight": 17
+    },
+    {
+      "source": "golang",
+      "target": "git",
+      "weight": 16
+    },
+    {
+      "source": "golang",
+      "target": "mysql",
+      "weight": 9
+    },
+    {
+      "source": "golang",
+      "target": "typescript",
+      "weight": 10
+    },
+    {
+      "source": "golang",
+      "target": "vue",
+      "weight": 10
+    },
+    {
+      "source": "golang",
+      "target": "postgresql",
+      "weight": 10
+    },
+    {
+      "source": "golang",
+      "target": "redis",
+      "weight": 10
+    },
+    {
+      "source": "kafka",
+      "target": "php",
+      "weight": 6
+    },
+    {
+      "source": "php",
+      "target": "git",
+      "weight": 35
+    },
+    {
+      "source": "php",
+      "target": "mysql",
+      "weight": 127
+    },
+    {
+      "source": "php",
+      "target": "typescript",
+      "weight": 12
+    },
+    {
+      "source": "php",
+      "target": "vue",
+      "weight": 59
+    },
+    {
+      "source": "php",
+      "target": "nodejs",
+      "weight": 5
+    },
+    {
+      "source": "php",
+      "target": "mongodb",
+      "weight": 9
+    },
+    {
+      "source": "php",
+      "target": "postgresql",
+      "weight": 14
+    },
+    {
+      "source": "php",
+      "target": "redis",
+      "weight": 11
+    },
+    {
+      "source": "php",
+      "target": "figma",
+      "weight": 9
+    },
+    {
+      "source": "php",
+      "target": "python",
+      "weight": 20
+    },
+    {
+      "source": "angular",
+      "target": "git",
+      "weight": 6
+    },
+    {
+      "source": "angular",
+      "target": "typescript",
+      "weight": 28
+    },
+    {
+      "source": "angular",
+      "target": "vue",
+      "weight": 14
+    },
+    {
+      "source": "git",
+      "target": "typescript",
+      "weight": 13
+    },
+    {
+      "source": "git",
+      "target": "mysql",
+      "weight": 26
+    },
+    {
+      "source": "git",
+      "target": "vue",
+      "weight": 19
+    },
+    {
+      "source": "git",
+      "target": "python",
+      "weight": 8
+    },
+    {
+      "source": "git",
+      "target": "mongodb",
+      "weight": 9
+    },
+    {
+      "source": "git",
+      "target": "postgresql",
+      "weight": 16
+    },
+    {
+      "source": "git",
+      "target": "redis",
+      "weight": 21
+    },
+    {
+      "source": "git",
+      "target": "ruby",
+      "weight": 9
+    },
+    {
+      "source": "git",
+      "target": "jira",
+      "weight": 10
+    },
+    {
+      "source": "git",
+      "target": "c++",
+      "weight": 8
+    },
+    {
+      "source": "git",
+      "target": "oracle",
+      "weight": 5
+    },
+    {
+      "source": "typescript",
+      "target": "mysql",
+      "weight": 15
+    },
+    {
+      "source": "typescript",
+      "target": "vue",
+      "weight": 19
+    },
+    {
+      "source": "typescript",
+      "target": "oracle",
+      "weight": 7
+    },
+    {
+      "source": "typescript",
+      "target": "postgresql",
+      "weight": 11
+    },
+    {
+      "source": "typescript",
+      "target": "figma",
+      "weight": 6
+    },
+    {
+      "source": "typescript",
+      "target": "express",
+      "weight": 9
+    },
+    {
+      "source": "typescript",
+      "target": "nodejs",
+      "weight": 18
+    },
+    {
+      "source": "figma",
+      "target": "vue",
+      "weight": 7
+    },
+    {
+      "source": "vue",
+      "target": "mysql",
+      "weight": 38
+    },
+    {
+      "source": "vue",
+      "target": "django",
+      "weight": 13
+    },
+    {
+      "source": "vue",
+      "target": "python",
+      "weight": 13
+    },
+    {
+      "source": "vue",
+      "target": "postgresql",
+      "weight": 5
+    },
+    {
+      "source": "vue",
+      "target": "nodejs",
+      "weight": 6
+    },
+    {
+      "source": "django",
+      "target": "oracle",
+      "weight": 6
+    },
+    {
+      "source": "django",
+      "target": "python",
+      "weight": 69
+    },
+    {
+      "source": "django",
+      "target": "fastapi",
+      "weight": 9
+    },
+    {
+      "source": "django",
+      "target": "flask",
+      "weight": 18
+    },
+    {
+      "source": "django",
+      "target": "postgresql",
+      "weight": 16
+    },
+    {
+      "source": "django",
+      "target": "redis",
+      "weight": 6
+    },
+    {
+      "source": "django",
+      "target": "ruby",
+      "weight": 10
+    },
+    {
+      "source": "oracle",
+      "target": "python",
+      "weight": 11
+    },
+    {
+      "source": "oracle",
+      "target": "jira",
+      "weight": 6
+    },
+    {
+      "source": "oracle",
+      "target": "postgresql",
+      "weight": 30
+    },
+    {
+      "source": "oracle",
+      "target": "spark",
+      "weight": 5
+    },
+    {
+      "source": "python",
+      "target": "fastapi",
+      "weight": 22
+    },
+    {
+      "source": "python",
+      "target": "flask",
+      "weight": 17
+    },
+    {
+      "source": "python",
+      "target": "c++",
+      "weight": 14
+    },
+    {
+      "source": "python",
+      "target": "machine learning",
+      "weight": 8
+    },
+    {
+      "source": "python",
+      "target": "mongodb",
+      "weight": 14
+    },
+    {
+      "source": "python",
+      "target": "mysql",
+      "weight": 12
+    },
+    {
+      "source": "python",
+      "target": "nodejs",
+      "weight": 9
+    },
+    {
+      "source": "python",
+      "target": "postgresql",
+      "weight": 16
+    },
+    {
+      "source": "python",
+      "target": "bash",
+      "weight": 6
+    },
+    {
+      "source": "python",
+      "target": "ruby",
+      "weight": 5
+    },
+    {
+      "source": "python",
+      "target": "big data",
+      "weight": 6
+    },
+    {
+      "source": "python",
+      "target": "scala",
+      "weight": 6
+    },
+    {
+      "source": "fastapi",
+      "target": "flask",
+      "weight": 7
+    },
+    {
+      "source": "mysql",
+      "target": "express",
+      "weight": 5
+    },
+    {
+      "source": "mysql",
+      "target": "nodejs",
+      "weight": 27
+    },
+    {
+      "source": "mysql",
+      "target": "postgresql",
+      "weight": 26
+    },
+    {
+      "source": "mysql",
+      "target": "mongodb",
+      "weight": 17
+    },
+    {
+      "source": "mysql",
+      "target": "redis",
+      "weight": 19
+    },
+    {
+      "source": "machine learning",
+      "target": "c++",
+      "weight": 6
+    },
+    {
+      "source": "machine learning",
+      "target": "pytorch",
+      "weight": 5
+    },
+    {
+      "source": "machine learning",
+      "target": "tensorflow",
+      "weight": 5
+    },
+    {
+      "source": "postgresql",
+      "target": "jira",
+      "weight": 6
+    },
+    {
+      "source": "postgresql",
+      "target": "mongodb",
+      "weight": 10
+    },
+    {
+      "source": "postgresql",
+      "target": "redis",
+      "weight": 30
+    },
+    {
+      "source": "postgresql",
+      "target": "ruby",
+      "weight": 14
+    },
+    {
+      "source": "postgresql",
+      "target": "elasticsearch",
+      "weight": 5
+    },
+    {
+      "source": "jira",
+      "target": "confluence",
+      "weight": 5
+    },
+    {
+      "source": "express",
+      "target": "nodejs",
+      "weight": 20
+    },
+    {
+      "source": "nodejs",
+      "target": "mongodb",
+      "weight": 8
+    },
+    {
+      "source": "scala",
+      "target": "big data",
+      "weight": 6
+    },
+    {
+      "source": "aws",
+      "target": "azure",
+      "weight": 9
+    },
+    {
+      "source": "aws",
+      "target": "gcp",
+      "weight": 9
+    },
+    {
+      "source": "azure",
+      "target": "gcp",
+      "weight": 9
+    },
+    {
+      "source": "mongodb",
+      "target": "redis",
+      "weight": 12
+    },
+    {
+      "source": "redis",
+      "target": "ruby",
+      "weight": 11
+    },
+    {
+      "source": "redis",
+      "target": "elasticsearch",
+      "weight": 5
+    },
+    {
+      "source": "ruby",
+      "target": "elasticsearch",
+      "weight": 5
+    },
+    {
+      "source": "big data",
+      "target": "dbt",
+      "weight": 5
+    },
+    {
+      "source": "pytorch",
+      "target": "tensorflow",
+      "weight": 5
+    }
+  ]
+}

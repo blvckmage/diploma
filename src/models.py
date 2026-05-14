@@ -449,10 +449,10 @@ class DemandRegressor(BaseModel):
         return metrics
 
     def cross_validate(self, X: np.ndarray, y: np.ndarray, cv: int = 5) -> Dict[str, float]:
-        from sklearn.model_selection import KFold
-        print(f"🔄 Кросс-валидация ({cv} фолдов)...")
-        kfold = KFold(n_splits=cv, shuffle=True, random_state=42)
-        scores = cross_val_score(self.model, X, y, cv=kfold, scoring='r2')
+        from sklearn.model_selection import TimeSeriesSplit
+        print(f"🔄 TimeSeriesSplit CV ({cv} фолдов)...")
+        tscv = TimeSeriesSplit(n_splits=cv)
+        scores = cross_val_score(self.model, X, y, cv=tscv, scoring='r2')
         results = {
             'mean_r2': scores.mean(),
             'std_r2': scores.std(),

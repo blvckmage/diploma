@@ -1,0 +1,4 @@
+model,accuracy,f1_weighted
+Logistic Regression,0.4468,0.4029
+Random Forest,0.7447,0.7482
+Gradient Boosting,0.773,0.7679

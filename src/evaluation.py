@@ -277,12 +277,24 @@ class RegressionEvaluator:
     
     def get_metrics(self) -> Dict[str, float]:
         from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+        # MAPE: защита от деления на ноль (пропускаем нулевые y_test)
+        nonzero_mask = self.y_test != 0
+        if nonzero_mask.sum() > 0:
+            mape = np.mean(
+                np.abs((self.y_test[nonzero_mask] - self.y_pred_test[nonzero_mask])
+                       / self.y_test[nonzero_mask])
+            ) * 100
+        else:
+            mape = np.nan
+
         metrics = {
-            'train_mae': mean_absolute_error(self.y_train, self.y_pred_train),
-            'test_mae': mean_absolute_error(self.y_test, self.y_pred_test),
-            'test_rmse': np.sqrt(mean_squared_error(self.y_test, self.y_pred_test)),
-            'train_r2': r2_score(self.y_train, self.y_pred_train),
-            'test_r2': r2_score(self.y_test, self.y_pred_test),
+            'train_r2':   r2_score(self.y_train, self.y_pred_train),
+            'test_r2':    r2_score(self.y_test,  self.y_pred_test),
+            'train_mae':  mean_absolute_error(self.y_train, self.y_pred_train),
+            'test_mae':   mean_absolute_error(self.y_test,  self.y_pred_test),
+            'test_rmse':  np.sqrt(mean_squared_error(self.y_test, self.y_pred_test)),
+            'test_mape':  mape,
         }
         return metrics
 
@@ -367,9 +379,18 @@ class RegressionEvaluator:
         report.append("=" * 60)
         report.append("REGRESSION MODEL EVALUATION REPORT")
         report.append("=" * 60)
-        report.append("\n📊 Metrics:")
-        for name, value in metrics.items():
-            report.append(f"   • {name}: {value:.4f}")
+        report.append("\n📊 Метрики:")
+        labels = {
+            'train_r2':  'Train R²',
+            'test_r2':   'Test  R²',
+            'train_mae': 'Train MAE',
+            'test_mae':  'Test  MAE',
+            'test_rmse': 'Test  RMSE',
+            'test_mape': 'Test  MAPE (%)',
+        }
+        for key, label in labels.items():
+            val = metrics.get(key, float('nan'))
+            report.append(f"   • {label:<18}: {val:.4f}")
         return "\n".join(report)
 
 

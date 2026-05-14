@@ -167,7 +167,8 @@ class VacancyPreprocessor:
         # 2. Парсинг зарплаты
         print("   • Парсинг зарплат...")
         self.processed_df['salary_numeric'] = self.processed_df['salary'].apply(self.parse_salary)
-        
+        self.processed_df = filter_salary_outliers(self.processed_df)
+
         # 3. Очистка опыта работы
         print("   • Очистка опыта работы...")
         self.processed_df['experience_clean'] = (
@@ -245,6 +246,29 @@ class VacancyPreprocessor:
         
         self.processed_df.to_csv(filepath, index=False, encoding=encoding)
         print(f"✅ Данные сохранены в {filepath}")
+
+
+def filter_salary_outliers(df: pd.DataFrame,
+                           min_salary: float = 50_000,
+                           max_salary: float = 10_000_000) -> pd.DataFrame:
+    """
+    Обнуляет salary_numeric для явно некорректных значений.
+    Порог min_salary=50_000 KZT отсекает артефакты вроде 1 000 KZT.
+    Порог max_salary=10_000_000 KZT отсекает случайные числа из текста.
+    """
+    df = df.copy()
+    if 'salary_numeric' not in df.columns:
+        return df
+
+    bad_mask = (
+        (df['salary_numeric'] < min_salary) |
+        (df['salary_numeric'] > max_salary)
+    )
+    n_bad = bad_mask.sum()
+    df.loc[bad_mask, 'salary_numeric'] = np.nan
+    if n_bad:
+        print(f"   ⚠️ Обнулено {n_bad} аномальных зарплат (< {min_salary:,} или > {max_salary:,} KZT)")
+    return df
 
 
 def remove_outliers_iqr(df: pd.DataFrame, column: str, multiplier: float = 1.5) -> pd.DataFrame:

@@ -18,34 +18,50 @@ from sklearn.decomposition import PCA, TruncatedSVD
 
 class FeatureEngineer:
     """Класс для создания признаков из данных вакансий"""
-    
-    # Словарь IT навыков для извлечения
+
+    # Алиасы: синонимы → каноническое название
+    SKILL_ALIASES = {
+        'js':           'javascript',
+        'ts':           'typescript',
+        'go':           'golang',
+        'k8s':          'kubernetes',
+        'postgres':     'postgresql',
+        'sklearn':      'scikit-learn',
+        'node.js':      'nodejs',
+        'node':         'nodejs',
+        'nestjs':       'nodejs',
+        'ml':           'machine learning',
+        'deep learning':'machine learning',
+        'ci/cd':        'cicd',
+    }
+
+    # Словарь IT навыков для извлечения (только канонические имена)
     IT_SKILLS = {
         # Языки программирования
-        'python', 'java', 'javascript', 'js', 'typescript', 'ts', 'c++', 'c#', 
-        'go', 'golang', 'rust', 'kotlin', 'swift', 'php', 'ruby', 'scala', 'r',
+        'python', 'java', 'javascript', 'typescript', 'c++', 'c#',
+        'golang', 'rust', 'kotlin', 'swift', 'php', 'ruby', 'scala',
         # Базы данных
-        'sql', 'mysql', 'postgresql', 'postgres', 'mongodb', 'redis', 'oracle',
+        'sql', 'mysql', 'postgresql', 'mongodb', 'redis', 'oracle',
         'sqlite', 'elasticsearch', 'cassandra', 'dynamodb',
         # Big Data
         'hadoop', 'spark', 'kafka', 'hive', 'airflow', 'dbt', 'snowflake',
         # ML/AI
-        'machine learning', 'ml', 'deep learning', 'nlp', 'tensorflow', 'pytorch',
-        'keras', 'scikit-learn', 'sklearn', 'opencv', 'transformers',
+        'machine learning', 'nlp', 'tensorflow', 'pytorch',
+        'keras', 'scikit-learn', 'opencv', 'transformers',
         # Cloud
-        'aws', 'azure', 'gcp', 'docker', 'kubernetes', 'k8s', 'ci/cd', 'jenkins',
+        'aws', 'azure', 'gcp', 'docker', 'kubernetes', 'cicd', 'jenkins',
         # Frameworks
-        'react', 'vue', 'angular', 'node.js', 'django', 'flask', 'spring',
-        'fastapi', 'express', 'nestjs',
+        'react', 'vue', 'angular', 'nodejs', 'django', 'flask', 'spring',
+        'fastapi', 'express',
         # Tools
         'git', 'linux', 'bash', 'jira', 'confluence', 'figma', 'postman',
         # BI
         'tableau', 'power bi', 'excel', 'powerpoint'
     }
-    
+
     # Русские IT навыки
     IT_SKILLS_RU = {
-        'sql', 'питон', 'джава', 'скл', 'машинное обучение', 'мл', 
+        'sql', 'питон', 'джава', 'скл', 'машинное обучение',
         'нейросети', 'анализ данных', 'big data', 'биг дата'
     }
     
@@ -61,33 +77,31 @@ class FeatureEngineer:
         self.df = df.copy()
         print(f"✅ Данные установлены: {len(self.df)} записей")
     
+    def normalize_skill(self, skill: str) -> str:
+        """Нормализует навык через таблицу алиасов"""
+        return self.SKILL_ALIASES.get(skill, skill)
+
     def extract_skills(self, text: str) -> List[str]:
         """
-        Извлечение IT навыков из текста
-        
-        Args:
-            text: Текст для анализа
-        
-        Returns:
-            Список найденных навыков
+        Извлечение IT навыков из текста с нормализацией синонимов.
         """
         if not text or pd.isna(text):
             return []
-        
+
         text_lower = text.lower()
-        found_skills = []
-        
-        # Поиск по словарю с использованием регулярных выражений для точного совпадения
-        all_skills = self.IT_SKILLS | self.IT_SKILLS_RU
-        for skill in all_skills:
-            # Экранируем специальные символы в навыке (например, в c++)
-            escaped_skill = re.escape(skill)
-            # Ищем точное совпадение слова, не окруженное другими буквами или цифрами
-            pattern = rf'(?<![a-z0-9а-я]){escaped_skill}(?![a-z0-9а-я])'
+        found_skills = set()
+
+        # Расширенный словарь для поиска: канонические + алиасы
+        search_terms = set(self.IT_SKILLS) | set(self.IT_SKILLS_RU) | set(self.SKILL_ALIASES.keys())
+
+        for term in search_terms:
+            escaped = re.escape(term)
+            pattern = rf'(?<![a-z0-9а-я]){escaped}(?![a-z0-9а-я])'
             if re.search(pattern, text_lower):
-                found_skills.append(skill)
-        
-        return list(set(found_skills))
+                # Приводим к каноническому имени
+                found_skills.add(self.normalize_skill(term))
+
+        return list(found_skills)
     
     def create_skill_features(self, df: pd.DataFrame, text_column: str = 'clean_text') -> pd.DataFrame:
         """
@@ -146,13 +160,12 @@ class FeatureEngineer:
         
         print(f"🔧 Создание TF-IDF признаков (max_features={max_features})...")
         
-        # TF-IDF Vectorizer
+        # TF-IDF Vectorizer (IT-навыки не исключаем — они и есть ключевые слова)
         vectorizer = TfidfVectorizer(
             max_features=max_features,
             ngram_range=ngram_range,
             min_df=3,
             max_df=0.95,
-            stop_words=list(FeatureEngineer.IT_SKILLS)  # Используем как доп. стоп-слова
         )
         
         # Обучение и трансформация

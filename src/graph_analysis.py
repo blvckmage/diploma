@@ -120,40 +120,141 @@ class SkillGraphAnalyzer:
         print(f"   ✅ Найдено кластеров: {unique_clusters} (после ручного объединения)")
         return community_map
         
+    # Цвета для кластеров (до 10 групп)
+    CLUSTER_COLORS = [
+        '#4E9AF1',  # 0 — синий       (Enterprise Backend / Java)
+        '#F4A261',  # 1 — оранжевый   (Frontend / Web)
+        '#2EC4B6',  # 2 — бирюзовый
+        '#E63946',  # 3 — красный     (Python / ML)
+        '#A8DADC',  # 4 — голубой     (DevOps / Cloud)
+        '#FFD166',  # 5 — жёлтый
+        '#C77DFF',  # 6 — фиолетовый
+        '#06D6A0',  # 7 — зелёный
+        '#EF476F',  # 8 — розовый
+        '#118AB2',  # 9 — тёмно-синий
+    ]
+
     def export_for_pyvis(self, output_path: str = 'reports/skill_graph.html'):
-        """Экспорт графа в интерактивный HTML с помощью Pyvis"""
+        """Экспорт графа в интерактивный HTML с правильными цветами и настройками."""
         if self.graph is None:
             return
-            
+
         try:
             from pyvis.network import Network
         except ImportError:
             print("⚠️ Установите pyvis: pip install pyvis")
             return
-            
+
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        
-        # Настройка сети
-        net = Network(height='700px', width='100%', bgcolor='#222222', font_color='white')
-        net.from_nx(self.graph)
-        
-        # Визуальные настройки
-        net.repulsion(node_distance=100, central_gravity=0.2, spring_length=200, spring_strength=0.05, damping=0.09)
-        
+
+        net = Network(
+            height='720px', width='100%',
+            bgcolor='#1a1a2e', font_color='white',
+            heading='',
+        )
+
+        # Максимальный размер узла для нормализации
+        max_size = max((d.get('size', 1) for _, d in self.graph.nodes(data=True)), default=1)
+
+        for node_id, data in self.graph.nodes(data=True):
+            group  = data.get('group', 0)
+            color  = self.CLUSTER_COLORS[group % len(self.CLUSTER_COLORS)]
+            raw_sz = data.get('size', 10)
+            # Нормализуем: от 15 до 60 пикселей
+            norm_size = 15 + int((raw_sz / max_size) * 45)
+
+            net.add_node(
+                node_id,
+                label=node_id.upper() if len(node_id) <= 4 else node_id.title(),
+                color=color,
+                size=norm_size,
+                title=(
+                    f"<b>{node_id}</b><br>"
+                    f"Вакансий: {raw_sz}<br>"
+                    f"Кластер: {group}"
+                ),
+                font={'size': 14, 'color': 'white'},
+                borderWidth=2,
+                borderWidthSelected=4,
+            )
+
+        # Максимальный вес ребра для нормализации толщины
+        max_weight = max((d.get('weight', 1) for _, _, d in self.graph.edges(data=True)), default=1)
+
+        for src, dst, data in self.graph.edges(data=True):
+            weight = data.get('weight', 1)
+            width  = 1 + int((weight / max_weight) * 8)
+            net.add_edge(
+                src, dst,
+                value=weight,
+                width=width,
+                title=f"{src} ↔ {dst}: {weight} совместных упоминаний",
+                color={'opacity': 0.5},
+            )
+
+        # Физика: барнс-хат для больших графов (быстро и красиво)
+        net.set_options("""
+        {
+          "physics": {
+            "enabled": true,
+            "barnesHut": {
+              "gravitationalConstant": -8000,
+              "centralGravity": 0.3,
+              "springLength": 180,
+              "springConstant": 0.04,
+              "damping": 0.12,
+              "avoidOverlap": 0.3
+            },
+            "stabilization": {
+              "enabled": true,
+              "iterations": 300,
+              "updateInterval": 25
+            }
+          },
+          "interaction": {
+            "hover": true,
+            "tooltipDelay": 100,
+            "hideEdgesOnDrag": true,
+            "navigationButtons": true,
+            "keyboard": true
+          },
+          "edges": {
+            "smooth": { "type": "continuous" }
+          }
+        }
+        """)
+
         net.save_graph(output_path)
         print(f"   ✅ Интерактивный граф сохранен: {output_path}")
         
     def export_graph_data(self, output_path: str = 'models/graph_data.json'):
-        """Экспорт данных графа для Streamlit"""
+        """Экспорт данных графа для Streamlit в унифицированном формате."""
         if self.graph is None:
             return
-            
+
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        
-        data = nx.node_link_data(self.graph)
+
+        nodes = []
+        for node_id, data in self.graph.nodes(data=True):
+            nodes.append({
+                'id':    node_id,
+                'label': node_id,
+                'size':  data.get('size', 1),
+                'group': data.get('group', 0),
+            })
+
+        links = []
+        for src, dst, data in self.graph.edges(data=True):
+            links.append({
+                'source': src,
+                'target': dst,
+                'weight': data.get('weight', 1),
+            })
+
+        export = {'nodes': nodes, 'links': links}
         with open(output_path, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False)
-        print(f"   ✅ Данные графа сохранены: {output_path}")
+            json.dump(export, f, ensure_ascii=False, indent=2)
+        print(f"   ✅ Данные графа сохранены: {output_path} ({len(nodes)} узлов, {len(links)} рёбер)")
 
 if __name__ == "__main__":
     from preprocessing import VacancyPreprocessor

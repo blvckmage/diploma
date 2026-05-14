@@ -293,19 +293,120 @@ class SkillAnalyzer:
         self.calculate_demand_index()
         self.create_demand_target(n_classes=n_classes)
         self.create_features_for_demand()
-        
+
         feature_cols = self.get_feature_columns()
         X = self.weekly_demand[feature_cols]
-        
+
         if task == 'regression':
             y = self.weekly_demand['demand_index']
         else:
             y = self.weekly_demand['demand_level']
-        
+
         print("\n" + "=" * 60)
         print("✅ ДАННЫЕ О НАВЫКАХ ГОТОВЫ ДЛЯ МОДЕЛИРОВАНИЯ")
         print("=" * 60)
         return X, y, feature_cols
+
+    def temporal_train_test_split(
+        self,
+        X: pd.DataFrame,
+        y: pd.Series,
+        n_test_weeks: int = 4
+    ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+        """
+        Хронологический сплит: первые N-n_test_weeks недель = train,
+        последние n_test_weeks недель = test.
+        Предотвращает утечку данных из будущего в прошлое.
+        """
+        df = self.weekly_demand.copy()
+        sorted_weeks = sorted(df['year_week'].unique())
+
+        if len(sorted_weeks) <= n_test_weeks:
+            raise ValueError(
+                f"Недостаточно недель для сплита: всего {len(sorted_weeks)}, "
+                f"запрошено {n_test_weeks} на тест."
+            )
+
+        test_weeks = set(sorted_weeks[-n_test_weeks:])
+        train_weeks = set(sorted_weeks[:-n_test_weeks])
+
+        train_idx = df.index[df['year_week'].isin(train_weeks)]
+        test_idx  = df.index[df['year_week'].isin(test_weeks)]
+
+        print(f"   📅 Train: {len(sorted_weeks) - n_test_weeks} недель "
+              f"({sorted_weeks[0]} → {sorted_weeks[-n_test_weeks - 1]})")
+        print(f"   📅 Test:  {n_test_weeks} недели "
+              f"({sorted_weeks[-n_test_weeks]} → {sorted_weeks[-1]})")
+        print(f"   Train samples: {len(train_idx)}, Test samples: {len(test_idx)}")
+
+        return (
+            X.loc[train_idx], X.loc[test_idx],
+            y.loc[train_idx], y.loc[test_idx]
+        )
+
+    def cluster_skills_kmeans(
+        self,
+        n_clusters: int = None,
+        output_path: str = 'reports/kmeans_skills.csv',
+    ) -> pd.DataFrame:
+        """K-Means кластеризация навыков по статистикам спроса."""
+        from sklearn.cluster import KMeans
+        from sklearn.preprocessing import StandardScaler
+
+        if self.weekly_demand is None:
+            raise ValueError("Сначала выполните aggregate_weekly_skills()")
+
+        features = self.weekly_demand.groupby('skill').agg(
+            total_vacancies=('vacancy_count', 'sum'),
+            avg_weekly_vacancies=('vacancy_count', 'mean'),
+            avg_salary=('avg_salary', 'mean'),
+            high_demand_weeks=('demand_level', lambda x: (x >= 3).sum()),
+            avg_demand_index=('demand_index', 'mean'),
+        ).reset_index()
+        features = features.dropna()
+
+        X = features[['total_vacancies', 'avg_weekly_vacancies', 'avg_salary',
+                       'high_demand_weeks', 'avg_demand_index']].values
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(X)
+
+        # Локоть: k от 2 до 8
+        if n_clusters is None:
+            inertias = []
+            ks = range(2, 9)
+            for k in ks:
+                km = KMeans(n_clusters=k, random_state=42, n_init=10)
+                km.fit(X_scaled)
+                inertias.append(km.inertia_)
+            # Выбираем k по максимальному падению
+            diffs = [inertias[i] - inertias[i + 1] for i in range(len(inertias) - 1)]
+            n_clusters = int(ks[diffs.index(max(diffs)) + 1])
+
+        km = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
+        features['cluster'] = km.fit_predict(X_scaled)
+
+        cluster_labels = {
+            0: 'High Demand',
+            1: 'Growing',
+            2: 'Niche',
+            3: 'Stable',
+            4: 'Emerging',
+        }
+        features['cluster_label'] = features['cluster'].map(
+            lambda c: cluster_labels.get(c, f'Cluster {c}')
+        )
+
+        import os
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        features.to_csv(output_path, index=False)
+
+        print(f"\n🔵 K-Means кластеризация навыков: k={n_clusters}")
+        for cl in sorted(features['cluster'].unique()):
+            skills_in = features[features['cluster'] == cl]['skill'].tolist()
+            print(f"   Кластер {cl}: {', '.join(skills_in[:8])}" +
+                  (f" + {len(skills_in)-8} ещё" if len(skills_in) > 8 else ""))
+        print(f"   ✅ Сохранено: {output_path}")
+        return features
 
     def analyze_demand_trends(self) -> pd.DataFrame:
         if self.weekly_demand is None:
