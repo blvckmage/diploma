@@ -1,35 +1,21 @@
-# Core
-requests>=2.28.0
+# Dashboard & Visualization
+streamlit>=1.20.0
 pandas>=1.5.0
 numpy>=1.23.0
-
-# Visualization
-matplotlib>=3.6.0
-seaborn>=0.12.0
 plotly>=5.11.0
-wordcloud>=1.8.0
 
-# NLP
-scikit-learn>=1.2.0
-spacy>=3.5.0
-
-# ML Models
-xgboost>=1.7.0
-lightgbm>=3.3.0
-
-# Model interpretation
-shap>=0.41.0
-
-# Utilities
-tqdm>=4.64.0
-joblib>=1.2.0
-
-# NLP Embeddings
-gensim>=4.3.0
-transformers>=4.30.0
-torch>=2.0.0
-
-# Dashboard and Graph
-streamlit>=1.20.0
+# Graph
 networkx>=3.0
 pyvis>=0.3.1
+
+# ML (для inference в дашборде)
+scikit-learn>=1.2.0
+lightgbm>=3.3.0
+shap>=0.41.0
+
+# Time series (для страницы Forecast)
+statsmodels>=0.14.0
+
+# Utilities
+requests>=2.28.0
+joblib>=1.2.0
